@@ -1,0 +1,13 @@
+{
+  "//": "Purpose: Template for <project>/.mcp.json. Configures MCP servers for Claude Code. Installed by: claude-init → Init project (when Qdrant is selected). Replace 'your-collection-name' with your Qdrant collection and 'project-search' with a descriptive server name.",
+  "mcpServers": {
+    "project-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-qdrant"],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "COLLECTION_NAME": "your-collection-name"
+      }
+    }
+  }
+}
