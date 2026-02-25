@@ -14,7 +14,7 @@
 
 At the start of every session, in this order:
 
-1. **Read `docs/session-notes.md`** — understand current state and exact next steps.
+1. **Read `.claude/session-notes.md`** — understand current state and exact next steps.
 2. **Read `CLAUDE.md` in the project root** — load project-specific rules, module map, and conventions.
 3. **`git status`** — understand what is in flight (branch, staged changes, unpushed commits).
 4. **Run the test suite** — establish a clean baseline. Do not write code against a failing suite.
@@ -67,7 +67,7 @@ If any step reveals a problem (failing tests, dirty state, stale notes), **repor
 
 1. **Run tests immediately** — fix failures before moving on.
 2. **Commit atomically** — one logical change per commit.
-3. **Update `docs/session-notes.md`** after each major task or significant decision.
+3. **Update `.claude/session-notes.md`** after each major task or significant decision.
 
 ---
 
@@ -91,7 +91,7 @@ If any step reveals a problem (failing tests, dirty state, stale notes), **repor
 
 ## Context Management
 
-### Session Notes (`docs/session-notes.md`)
+### Session Notes (`.claude/session-notes.md`)
 
 After every major task or significant decision, **prepend** an entry with:
 

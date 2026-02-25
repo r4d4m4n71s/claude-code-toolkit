@@ -94,7 +94,7 @@ A Qdrant MCP server is configured as `<collection-name>`.
 | Architecture | `@docs/architecture.md` | When understanding or changing design |
 | Sprint details | `@docs/sprints.md` | When reviewing sprint scope |
 | Git conventions | `@CONVENTIONS.md` | When unsure about commit/branch style |
-| Session notes | `@docs/session-notes.md` | **Always at session start**; update after major tasks |
+| Session notes | `@.claude/session-notes.md` | **Always at session start**; update after major tasks |
 
 **Load on demand — do NOT load all docs at session start.**
 
