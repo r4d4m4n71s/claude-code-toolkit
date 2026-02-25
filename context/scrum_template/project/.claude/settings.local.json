@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schema/settings.schema.json",
+  "$comment": "Purpose: Template for <project>/.claude/settings.local.json. Git-ignored — contains personal environment variables (API key, model overrides). Never commit this file. Installed by: claude-init → Init project.",
+  "env": {
+    "ANTHROPIC_API_KEY": "",
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
+  }
+}
