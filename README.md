@@ -18,12 +18,13 @@ claude-code-toolkit/
         │       ├── tester.md
         │       └── documentator.md
         └── project/
-            ├── CLAUDE.md        ← Per-project rules template
-            ├── CONVENTIONS.md   ← Git / code conventions
-            ├── session-notes.md ← Session log
-            ├── settings.json    ← Shared tool permissions (commit this)
-            ├── settings.local.json  ← Personal env vars (git-ignored)
-            └── .mcp.json.template   ← Qdrant MCP server config
+            ├── CONVENTIONS.md       ← Git / code conventions (→ project root)
+            ├── .mcp.json            ← Qdrant MCP server config (→ project root)
+            └── .claude/
+                ├── CLAUDE.md        ← Per-project rules template
+                ├── session-notes.md ← Session log
+                ├── settings.json    ← Shared tool permissions (commit this)
+                └── settings.local.json  ← Personal env vars (git-ignored)
 ```
 
 ## Setup — global context (once per machine)
@@ -44,7 +45,10 @@ Use `--force` to overwrite — existing files are backed up with a timestamp fir
 
 ## Setup — project context (once per project)
 
-Installs all project files into `<project>/.claude/`.
+Installs project files, mirroring the template structure:
+- `project/.claude/*` → `<project>/.claude/`
+- `project/CONVENTIONS.md`, `project/.mcp.json` → `<project>/` (project root)
+
 `<project-name>` inside `CLAUDE.md` is automatically replaced with the actual folder name.
 
 ```bash
@@ -62,12 +66,12 @@ Installs all project files into `<project>/.claude/`.
 
 | Source | Destination |
 |--------|-------------|
-| `project/CLAUDE.md` | `<project>/.claude/CLAUDE.md` (project-name substituted) |
-| `project/CONVENTIONS.md` | `<project>/.claude/CONVENTIONS.md` |
-| `project/session-notes.md` | `<project>/.claude/session-notes.md` |
-| `project/settings.json` | `<project>/.claude/settings.json` |
-| `project/settings.local.json` | `<project>/.claude/settings.local.json` |
-| `project/.mcp.json.template` | `<project>/.claude/.mcp.json.template` |
+| `project/.claude/CLAUDE.md` | `<project>/.claude/CLAUDE.md` (project-name substituted) |
+| `project/.claude/session-notes.md` | `<project>/.claude/session-notes.md` |
+| `project/.claude/settings.json` | `<project>/.claude/settings.json` |
+| `project/.claude/settings.local.json` | `<project>/.claude/settings.local.json` |
+| `project/CONVENTIONS.md` | `<project>/CONVENTIONS.md` |
+| `project/.mcp.json` | `<project>/.mcp.json` |
 
 > **Note:** `settings.local.json` contains personal env vars (API key, model overrides).
 > Add it to `.gitignore` — never commit it.

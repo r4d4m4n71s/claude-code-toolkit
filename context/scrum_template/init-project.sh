@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Purpose: Install project Claude Code context into <project>/.claude/
+# Purpose: Install project Claude Code context into <project>/
+#   - <project>/.claude/  ← from project/.claude/
+#   - <project>/          ← from project/ root (CONVENTIONS.md, .mcp.json)
 # Usage:   ./init-project.sh [project-path] [--force]
 #   project-path  Target project directory (default: current working directory).
 #   --force       Back up existing files before overwriting instead of skipping them.
@@ -63,10 +65,11 @@ install_file() {
 # ── main ──────────────────────────────────────────────────────────────────────
 echo "==> Installing project context"
 echo "    Project : $PROJECT_NAME"
-echo "    Target  : $DEST"
+echo "    Target  : $PROJECT_PATH"
 mkdir -p "$DEST"
 
-for f in "$SRC"/* "$SRC"/.[!.]*; do
+# Files in project/.claude/ → <project>/.claude/
+for f in "$SRC/.claude"/* "$SRC/.claude"/.[!.]*; do
     [[ -f "$f" ]] || continue
     fname="$(basename "$f")"
     if [[ "$fname" == "CLAUDE.md" ]]; then
@@ -74,6 +77,12 @@ for f in "$SRC"/* "$SRC"/.[!.]*; do
     else
         install_file "$f" "$DEST/$fname"
     fi
+done
+
+# Files at project/ root → <project>/ root
+for f in "$SRC"/* "$SRC"/.[!.]*; do
+    [[ -f "$f" ]] || continue
+    install_file "$f" "$PROJECT_PATH/$(basename "$f")"
 done
 
 if (( SKIPPED > 0 )); then
