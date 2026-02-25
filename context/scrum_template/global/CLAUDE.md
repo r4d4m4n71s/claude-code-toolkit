@@ -134,6 +134,31 @@ Most recent entry goes first.
 
 ---
 
+## Memory Hygiene
+
+`MEMORY.md` (auto-memory) and `CLAUDE.md` can drift apart over time. CLAUDE.md is always authoritative.
+
+### When to sync
+
+| Trigger | What to check |
+|---------|--------------|
+| Sprint or major feature completes | Sprint status, architectural decisions, key design choices |
+| CLAUDE.md is significantly updated | MEMORY.md for contradictions or now-redundant entries |
+| Session notes reveal changes since last session | Sprint status and credential/config model in MEMORY.md |
+
+### Consistency check procedure
+
+1. Read both MEMORY.md and CLAUDE.md.
+2. Compare overlapping sections: sprint status, architectural decisions, code conventions, key fixes.
+3. CLAUDE.md is authoritative — update MEMORY.md where they conflict.
+4. Remove MEMORY.md entries that duplicate CLAUDE.md content (redundancy has no value).
+
+### On-demand trigger
+
+When the user says **"check memory consistency"** or **"check memory"** → run the consistency check immediately and report findings before making any changes.
+
+---
+
 ## Code Standards (Python)
 
 These apply when working on Python projects:
