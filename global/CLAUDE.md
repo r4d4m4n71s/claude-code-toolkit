@@ -1,9 +1,3 @@
-<!--
-  Purpose: Template for ~/.claude/CLAUDE.md — global rules that apply to ALL
-  Claude Code projects on this machine. Installed by: claude-init → Init globals.
-  Edit the installed copy at ~/.claude/CLAUDE.md, not this source file.
--->
-
 # Global Claude Code Rules
 
 > These rules apply to **ALL** projects. Project-level `CLAUDE.md` files extend but cannot weaken these rules.
@@ -12,13 +6,17 @@
 
 ## Session Startup
 
-At the start of every session, in this order:
+Adaptive startup based on session intent:
 
-1. **Read `.claude/session-notes.md`** — understand current state and exact next steps.
-2. **Read `CLAUDE.md` in the project root** — load project-specific rules, module map, and conventions.
-3. **`git status`** — understand what is in flight (branch, staged changes, unpushed commits).
-4. **Run the test suite** — establish a clean baseline. Do not write code against a failing suite.
+| Intent | Steps |
+|--------|-------|
+| **Continuing previous work** | session-notes -> git status -> targeted file reads |
+| **New feature / sprint** | session-notes -> git status -> load workflow rules -> run tests |
+| **Bug fix** | session-notes -> git status -> run tests -> read failing module |
+| **Docs / config only** | session-notes -> git status (skip test suite) |
+| **Housekeeping** ("check memory") | MEMORY.md vs CLAUDE.md comparison (no tests needed) |
 
+Always read `.claude/session-notes.md` and project `CLAUDE.md` first.
 If any step reveals a problem (failing tests, dirty state, stale notes), **report it before proceeding**.
 
 ---
@@ -136,30 +134,30 @@ Most recent entry goes first.
 
 `MEMORY.md` (auto-memory) and `CLAUDE.md` can drift apart over time. CLAUDE.md is always authoritative.
 
-### When to sync
+### What belongs in MEMORY.md
+- Environment setup (how to install, run tests)
+- API/library gotchas that cause subtle bugs
+- Decisions that would be wrong to re-derive
 
-| Trigger | What to check |
-|---------|--------------|
-| Sprint or major feature completes | Sprint status, architectural decisions, key design choices |
-| CLAUDE.md is significantly updated | MEMORY.md for contradictions or now-redundant entries |
-| Session notes reveal changes since last session | Sprint status and credential/config model in MEMORY.md |
+### What does NOT belong in MEMORY.md
+- Anything already in CLAUDE.md (no duplication)
+- Anything findable by reading the code (module descriptions, function signatures)
+- Historical sprint/feature notes (that's what `docs/sprints.md` is for)
 
-### Consistency check procedure
+### Consistency check
 
+When the user says **"check memory consistency"** or **"check memory"**:
 1. Read both MEMORY.md and CLAUDE.md.
-2. Compare overlapping sections: sprint status, architectural decisions, code conventions, key fixes.
-3. CLAUDE.md is authoritative — update MEMORY.md where they conflict.
-4. Remove MEMORY.md entries that duplicate CLAUDE.md content (redundancy has no value).
+2. CLAUDE.md is authoritative — update MEMORY.md where they conflict.
+3. Remove MEMORY.md entries that duplicate CLAUDE.md content.
 
-### On-demand trigger
-
-When the user says **"check memory consistency"** or **"check memory"** → run the consistency check immediately and report findings before making any changes.
+Also check after every sprint merge or significant CLAUDE.md update.
 
 ---
 
 ## Code Standards (Python)
 
-These apply when working on Python projects:
+These apply when working on Python projects (project-level CLAUDE.md may override):
 
 - Python 3.10+ syntax and features.
 - Type hints on every function/method signature.
