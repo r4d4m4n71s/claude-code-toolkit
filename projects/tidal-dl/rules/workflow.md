@@ -172,7 +172,64 @@ MEMORY.md: only update if a new gotcha/pitfall was discovered. Do not duplicate 
 4. **Periodic audit** — Every 5 sprints, scan `docs/` for staleness. Archive anything that hasn't been updated in 10+ sprints and isn't a Spec or Record.
 5. **Active docs cap** — Target ~12 active files in `docs/` (not counting `docs/archive/`). If over 15, audit immediately.
 
+---
+
+## Periodic Hygiene
+
+**Cadence:** after every architecture review (~every 5 sprints), or when clutter is noticeable.
+
+Quick checklist — run from the main conversation, no agent needed:
+
+1. **Branches** — `git branch --merged main` → delete all merged feature/sprint branches.
+2. **Untracked artifacts** — `git clean -n -d` → delete leaked test artifacts, caches, temp dirs.
+3. **Test organization** — verify all `test_*.py` files live in `tests/unit/`, none stranded in `tests/` root.
+4. **research/** — check for docs whose content has been absorbed into code or Living docs → delete.
+5. **Large files** — `find . -size +10M -not -path './.git/*' -not -path './.venv/*'` → evaluate if still needed.
+
+This is a lightweight sweep, not a formal pipeline step. Most items self-resolve if feature branches are deleted after each sprint merge.
+
+---
+
+## Architecture Diagrams
+
+Diagrams are maintained as **Mermaid** code blocks inside markdown files in `docs/diagrams/`.
+
+### Format: Mermaid
+
+- **Zero dependencies** — renders natively on GitHub and in VSCode (with extension).
+- **Git-friendly** — plain text, clean diffs, version-controllable.
+- **LLM-friendly** — widely trained, easy to generate and update.
+- **VSCode extension:** `bierner.markdown-mermaid` (renders in markdown preview).
+
+### Diagram inventory
+
+| Diagram | File | Type | Description |
+|---------|------|------|-------------|
+| Module dependency | `module-dependency.md` | flowchart | Package dependency direction (cli → commands → download/metadata → config) |
+| Download pipeline | `download-pipeline.md` | flowchart | Track/video download flow: resolve → quality → download → decrypt → tag |
+| Auth lifecycle | `auth-lifecycle.md` | sequence | Device flow → token store → refresh → credential rotation |
+| Config resolution | `config-resolution.md` | flowchart | 5-layer intent resolution: CLI → intent → profile → parent → default |
+
+### Maintenance rules
+
+1. **When to update** — any sprint that changes the flow or structure depicted in a diagram must update it in the same commit.
+2. **Review trigger** — during architecture reviews, verify each diagram still matches the code. Stale diagrams are worse than no diagrams.
+3. **Creation gate** — before adding a new diagram, ask: does it help someone understand the system faster than reading the code? If not, skip it.
+4. **Keep it high-level** — diagrams show structure and flow, not implementation details. If a diagram needs more than ~30 nodes, split it.
+
 ### Target structure
+
+```
+docs/diagrams/
+├── module-dependency.md      # Package dependency graph
+├── download-pipeline.md      # Track/video download flow
+├── auth-lifecycle.md         # Auth + token lifecycle
+└── config-resolution.md      # Config/intent resolution
+```
+
+---
+
+### Docs target structure
 
 ```
 docs/

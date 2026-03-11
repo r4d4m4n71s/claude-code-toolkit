@@ -8,24 +8,37 @@ Track changes to Claude Code configuration files that live outside project repos
 - Global `CLAUDE.md` (applies to all projects)
 - Per-project `CLAUDE.md`, rules, session notes, and memory files
 
+**Full lifecycle reference:** [`DEVELOPMENT-LIFECYCLE.md`](DEVELOPMENT-LIFECYCLE.md) — end-to-end SDLC from session startup through coding, testing, documentation, and maintenance.
+
 ## Structure
 
 ```
 claude-config/
+├── DEVELOPMENT-LIFECYCLE.md      ← full SDLC reference document
+├── README.md
 ├── global/
-│   └── CLAUDE.md                 ← ~/.claude/CLAUDE.md (global rules)
+│   ├── CLAUDE.md                 ← ~/.claude/CLAUDE.md (global rules)
+│   ├── agents/                   ← agent definitions (deployed to ~/.claude/agents/)
+│   │   ├── architect.md              ← Opus + thinking — design, planning
+│   │   ├── developer.md              ← Sonnet — implementation
+│   │   ├── tester.md                 ← Sonnet — test suite creation
+│   │   ├── documentator.md           ← Sonnet — documentation
+│   │   └── research.md               ← Opus + thinking — security research
+│   └── settings/
+│       └── settings.json             ← global permissions and tool allowlists
 ├── projects/
 │   └── tidal-dl/
 │       ├── CLAUDE.md             ← project root CLAUDE.md
 │       ├── session-notes.md      ← .claude/session-notes.md
 │       ├── rules/                ← on-demand workflow rules (loaded when needed)
-│       │   ├── workflow.md           ← sprint pipeline, agent orchestration
+│       │   ├── workflow.md           ← sprint pipeline, agent orchestration, docs lifecycle
 │       │   ├── architecture-review.md ← review process, table schema
 │       │   ├── commit-conventions.md  ← commit types, scopes, examples
 │       │   └── security-research.md   ← research process, trigger phrases
+│       ├── settings/
+│       │   └── settings.json         ← project-specific permissions
 │       └── memory/
 │           └── MEMORY.md         ← auto-memory (gotchas, pitfalls, env setup)
-└── README.md
 ```
 
 ## Workflow
