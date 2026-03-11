@@ -97,19 +97,6 @@ A "yes" triggers the agent immediately. Never invoke agents silently.
 
 ---
 
-## Agent Models
-
-| Agent | Model | Thinking |
-|-------|-------|----------|
-| `architect` | opus | yes |
-| `developer` | sonnet | no |
-| `tester` | sonnet | no |
-| `documentator` | sonnet | no |
-| `Explore` | sonnet | no |
-| `research` (general-purpose) | opus | yes |
-
----
-
 ## Agent Context Templates
 
 | Agent | Pass in |
@@ -194,7 +181,6 @@ docs/
 ├── config-matrix.md          # Spec — config reference
 ├── qobuz-setup.md            # Living — Qobuz setup guide
 ├── reference.md              # Living — CLI + API reference
-├── security-findings-*.md    # One-off — absorbed then archived
 ├── smoke-tests.md            # Living — all smoke tests (TIDAL + Qobuz + wizard)
 ├── spec.md                   # Spec — original feature spec
 ├── sprints.md                # Record — sprint history

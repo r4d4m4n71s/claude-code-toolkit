@@ -153,6 +153,10 @@ When the user says **"check memory consistency"** or **"check memory"**:
 
 Also check after every sprint merge or significant CLAUDE.md update.
 
+### Topic files cleanup
+- Memory topic files (e.g., `l1-plan.md`, `sprint-details.md`) should be deleted when their subject is complete.
+- During consistency checks, scan `memory/` for files beyond `MEMORY.md` and delete any that reference completed work.
+
 ---
 
 ## Code Standards (Python)
