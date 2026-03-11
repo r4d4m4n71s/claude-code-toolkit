@@ -20,18 +20,70 @@ Choose the right process for the task scope:
 
 ## Major Tier — Full Agent Pipeline
 
-1. **architect** — confirm -> invoke -> present plan -> wait for user approval
-2. **developer + tester** — confirm (both together) -> invoke in parallel
-3. **run unit tests** — `.venv/bin/pytest tests/ -v --tb=short`; fix failures before proceeding
-4. **documentator** — confirm -> invoke -> integrate result
-5. **commit / merge / push** — always in main conversation, never inside an agent
-6. **docs sync** — move resolved items from `architecture-review.md` -> `architecture-review-done.md`; update sprint plan; update CLAUDE.md test count; add sprint entry to `docs/sprints.md`
-7. **memory sync** — check MEMORY.md against CLAUDE.md and update if needed
+```
+ 1. ARCHITECT (Opus + thinking)
+    confirm -> invoke -> present plan -> wait for user approval
+                          │
+ 2. DEVELOPER + TESTER (Sonnet, parallel)
+    confirm -> invoke both in same message -> integrate results
+                          │
+ 3. UNIT TESTS
+    .venv/bin/pytest tests/ -v --tb=short
+    fix failures in main conversation before proceeding
+                          │
+ 4. SMOKE TESTS (user-driven, when applicable)
+    run relevant sections from docs/smoke-tests.md
+    requires proxy-enabled profile — never run without proxy
+    see "Smoke Testing" section below
+                          │
+ 5. DOCUMENTATOR (Sonnet)
+    confirm -> invoke -> integrate result
+                          │
+ 6. COMMIT / MERGE / PUSH
+    always in main conversation, never inside an agent
+                          │
+ 7. DOCS SYNC
+    architecture-review.md -> architecture-review-done.md
+    update CLAUDE.md test count; add sprint to docs/sprints.md
+                          │
+ 8. MEMORY SYNC
+    check MEMORY.md against CLAUDE.md, update if needed
+```
 
 **Batch approval option** (Major tier only):
 > *"Running full sprint pipeline (architect -> dev+test -> documentator). Approve all steps, or step-by-step?"*
 
 A single "approve all" cuts 3 interruptions per sprint.
+
+---
+
+## Smoke Testing
+
+Smoke tests verify real behavior against live TIDAL/Qobuz APIs through a proxy. They are **user-driven** — never automated without explicit request.
+
+### When to run
+
+| Change type | Smoke test? |
+|-------------|------------|
+| Internal refactor, no behavior change | No |
+| New CLI command or flag | Yes — test the new command |
+| Download pipeline change | Yes — run a download through proxy |
+| Auth/proxy/fingerprint change | Yes — full login + download cycle |
+| Metadata/tagging change | Yes — verify tags on downloaded file |
+
+### How to run
+
+1. Main conversation proposes which smoke test sections to run (from `docs/smoke-tests.md`)
+2. User confirms and provides proxy profile if needed
+3. Execute with proxy-enabled profile: `tidal-dl dl --profile <proxy-profile> <url>`
+4. Verify output (file exists, correct format, correct tags, etc.)
+5. Report results in session notes
+
+### Rules
+
+- **NEVER run downloads without a proxy-enabled profile**
+- Smoke tests are optional for Micro tier, recommended for Standard when user-facing, required for Major when download/auth behavior changes
+- Reference: `docs/smoke-tests.md` (30 sections), `docs/smoke-tests-qobuz.md`
 
 ---
 
