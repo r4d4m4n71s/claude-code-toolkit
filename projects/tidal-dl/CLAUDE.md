@@ -70,14 +70,17 @@ tidal_dl/
 ## Code search
 Use `Grep`/`Glob` + `Read` for navigation. The module map above and MEMORY.md provide sufficient context.
 
-## Docs (load on demand)
-- Architecture summary: @docs/architecture-summary.md
-- Full architecture: @docs/architecture.md
-- Full spec: @docs/spec.md
-- Sprint details: @docs/sprints.md
-- Smoke tests: @docs/smoke-tests.md
+## Docs (load on demand — ~12 active files, see rules/workflow.md for lifecycle)
+- Architecture: @docs/architecture.md
 - Architecture review: @docs/architecture-review.md
+- Config matrix: @docs/config-matrix.md
+- Qobuz setup: @docs/qobuz-setup.md
+- Reference: @docs/reference.md
+- Smoke tests: @docs/smoke-tests.md
+- Spec: @docs/spec.md
+- Sprint history: @docs/sprints.md
 - Security research: @docs/tidal-security-research.md
+- User guide: @docs/user-guide.md
 - Session context: @.claude/session-notes.md
 
 ## Workflow rules (load on demand)

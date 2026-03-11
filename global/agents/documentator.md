@@ -109,6 +109,16 @@ Table of issues found (or "All clear").
 (changes made or full content)
 ```
 
+## Documentation Lifecycle
+
+When creating or updating docs, follow the project's documentation lifecycle rules (typically in the workflow rules file):
+
+- **Living docs** (architecture, user-guide, smoke-tests) — update in place, never replace.
+- **Plan docs** — archive when the plan is fully implemented. Don't leave stale plans in active docs.
+- **One-off docs** (findings, guides) — absorb key content into Living docs, then archive the original.
+- **Creation gate** — before creating a new file, check if the content belongs in an existing Living doc. Prefer adding a section over adding a file.
+- **Active docs cap** — if `docs/` exceeds ~15 files, flag it and suggest archival candidates.
+
 ## What You Never Do
 
 - Never invent behavior not present in the code.

@@ -83,7 +83,7 @@ Smoke tests verify real behavior against live TIDAL/Qobuz APIs through a proxy. 
 
 - **NEVER run downloads without a proxy-enabled profile**
 - Smoke tests are optional for Micro tier, recommended for Standard when user-facing, required for Major when download/auth behavior changes
-- Reference: `docs/smoke-tests.md` (30 sections), `docs/smoke-tests-qobuz.md`
+- Reference: `docs/smoke-tests.md` (30 sections + Qobuz + wizard)
 
 ---
 
@@ -162,3 +162,46 @@ Only 3 update points after each sprint:
 | **docs/sprints.md** | After sprint merge | Sprint details (single source of truth for history) |
 
 MEMORY.md: only update if a new gotcha/pitfall was discovered. Do not duplicate sprint status.
+
+---
+
+## Documentation Lifecycle
+
+### Document types
+
+| Type | Lifespan | Examples |
+|------|----------|---------|
+| **Living** | Permanent — updated continuously | architecture.md, user-guide.md, smoke-tests.md, reference.md |
+| **Plan** | Until implemented, then archive | l1-plan.md, qobuz-integration-plan.md |
+| **Record** | Permanent — append-only | sprints.md, architecture-review-done.md |
+| **Spec** | Permanent — versioned | spec.md, config-matrix.md |
+| **One-off** | Until absorbed into a Living doc, then archive | security-findings-*.md, capture guides |
+
+### Rules
+
+1. **Creation gate** — Before creating a new doc, ask: Can this go in an existing Living doc? If yes, add a section there instead.
+2. **Plan archival** — During post-sprint bookkeeping, move completed Plan docs to `docs/archive/`. They served their purpose.
+3. **One-off absorption** — One-off docs (findings, guides) should be absorbed into the relevant Living doc within 1-2 sprints, then archived.
+4. **Periodic audit** — Every 5 sprints, scan `docs/` for staleness. Archive anything that hasn't been updated in 10+ sprints and isn't a Spec or Record.
+5. **Active docs cap** — Target ~12 active files in `docs/` (not counting `docs/archive/`). If over 15, audit immediately.
+
+### Target structure
+
+```
+docs/
+├── architecture.md           # Living — full architecture
+├── architecture-review.md    # Living — active findings + done history
+├── config-matrix.md          # Spec — config reference
+├── qobuz-setup.md            # Living — Qobuz setup guide
+├── reference.md              # Living — CLI + API reference
+├── security-findings-*.md    # One-off — absorbed then archived
+├── smoke-tests.md            # Living — all smoke tests (TIDAL + Qobuz + wizard)
+├── spec.md                   # Spec — original feature spec
+├── sprints.md                # Record — sprint history
+├── tidal-security-research.md # Living — security knowledge base
+├── user-guide.md             # Living — end-user documentation
+└── archive/                  # Completed plans, absorbed one-offs
+    ├── l1-plan.md
+    ├── pipeline-decomposition-plan.md
+    └── ...
+```
